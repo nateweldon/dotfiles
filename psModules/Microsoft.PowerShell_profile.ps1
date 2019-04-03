@@ -1,6 +1,3 @@
-
-
-
 # http://serverfault.com/questions/95431
 # Function to test for admin settings
 function Test-Administrator {
@@ -34,9 +31,9 @@ function prompt {
     "`n$('>' * ($nestedPromptLevel + 1)) "
 }
 
-#posh-get import and settings
+#posh-get import and settings 
+#note: requires a soft link from $env:USERPROFILE\Document\PowerShell\Modules\posh-git to the git repo's src directory (see C:\tools)
 Import-Module posh-git
-#Import-Module C:\Users\$env:USERNAME\Documents\PowerShell\Modules\posh-git\posh-git.psm1
 
 $global:GitPromptSettings.BeforeText = '['
 $global:GitPromptSettings.AfterText  = '] '
@@ -67,7 +64,7 @@ Set-PSReadlineKeyHandler -Chord 'Shift+Tab' -Function Complete
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 
 #Global Imports files 
-Import-Module C:\Users\$env:USERNAME\dotfiles\psModules\dotFileImporter.psm1
+Import-Module $env:USERPROFILE\dotfiles\psModules\dotFileImporter.psm1
 
 # Suppose to speed up admin power shell settings
 #$env:path = [Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()

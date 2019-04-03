@@ -19,10 +19,10 @@ Dumps all PowerShell Saved history
 
 .DESCRIPTION
 
-Current saved location is "C:\Users\$env:USERNAME\workspace\history\"
+Current saved location is "$env:USERPROFILE\workspace\history\"
 
 #>
-    Import-Csv -Path  (Get-ChildItem -Path C:\Users\$env:USERNAME\workspace\history\ -Filter '*.csv').FullName | Select "id", "CommandLine"
+    Import-Csv -Path  (Get-ChildItem -Path $env:USERPROFILE\workspace\history\ -Filter '*.csv').FullName | Select "id", "CommandLine"
 }
 
 
@@ -48,11 +48,11 @@ Switches global git config to code.paychex.com version
 
 .DESCRIPTION
 
-New-Item -Path C:\Users\$env:USERNAME\.gitconfig -ItemType SymbolicLink -Value C:\Users\$env:USERNAME\dotfiles\configs\git\paychex\.gitconfig -Force
+New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\paychex\.gitconfig -Force
 
 #>
     Write-Host "Creating Sym Link for gitConfig -> code.paychex.com"
-    New-Item -Path C:\Users\$env:USERNAME\.gitconfig -ItemType SymbolicLink -Value C:\Users\$env:USERNAME\dotfiles\configs\git\paychex\.gitconfig -Force
+    New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\paychex\.gitconfig -Force
 }
 
 function swap_bucket {
@@ -62,11 +62,11 @@ function swap_bucket {
 Switches global git config to public bitbucket version 
 
 .DESCRIPTION
-New-Item -Path C:\Users\$env:USERNAME\.gitconfig -ItemType SymbolicLink -Value C:\Users\$env:USERNAME\dotfiles\configs\git\bitbucket\.gitconfig -Force
+New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\bitbucket\.gitconfig -Force
 
 #>
      Write-Host "Creating Sym Link for gitconfig -> bitbucket.com"
-     New-Item -Path C:\Users\$env:USERNAME\.gitconfig -ItemType SymbolicLink -Value C:\Users\$env:USERNAME\dotfiles\configs\git\bitbucket\.gitconfig -Force
+     New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\bitbucket\.gitconfig -Force
 }
 
 function swap_hub {
@@ -76,12 +76,12 @@ function swap_hub {
 Switches global git config to public gitHub.com version
 
 .DESCRIPTION
-New-Item -Path C:\Users\$env:USERNAME\.gitconfig -ItemType SymbolicLink -Value C:\Users\$env:USERNAME\dotfiles\configs\git\github\.gitconfig -Force
+New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\github\.gitconfig -Force
 
 
 #>
      Write-Host "Creating Sym Link for gitconfig -> gitHub.com"
-     New-Item -Path C:\Users\$env:USERNAME\.gitconfig -ItemType SymbolicLink -Value C:\Users\$env:USERNAME\dotfiles\configs\git\github\.gitconfig -Force
+     New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\github\.gitconfig -Force
 }
 
 function Set-PSTitle {
