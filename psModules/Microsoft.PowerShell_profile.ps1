@@ -89,8 +89,9 @@ if (Test-Path($ChocolateyProfile)) {
 $env:path += ";" + (Get-Item "Env:ProgramFiles").Value + "\Git\bin"
 $env:path += ";" + (Get-Item "Env:ProgramFiles").Value + "\Git\usr\bin"
 
-#SetPath to start in the users workspace
-Set-Location C:\Users\$env:USERNAME\workspace
+# SetPath to start in the users workspace
+$env:WORKSPACE = "$env:USERPROFILE\workspace"
+Set-Location $env:WORKSPACE
 
 
 function Reload-Profile {

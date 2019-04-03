@@ -5,6 +5,8 @@ Import-Module -Name $dotFiles\psModules\git\gitCommands.psm1 -Verbose
 Import-Module -Name $dotFiles\psModules\paychex\paychex_dirMoves.psm1 -Verbose
 Import-Module -Name $dotFiles\psModules\paychex\core\core_Commands.psm1 -Verbose
 Import-Module -Name $dotFiles\psModules\paychex\core\core_dirMoves.psm1 -Verbose
+Import-Module -Name $dotFiles\psModules\paychex\docmgmt\docmgmt_Commands.psm1 -Verbose
+Import-Module -Name $dotFiles\psModules\paychex\docmgmt\docmgmt_dirMoves.psm1 -Verbose
 Import-Module -Name $dotFiles\psModules\paychex\flex\flex_Commands.psm1 -Verbose
 Import-Module -Name $dotFiles\psModules\paychex\flex\flex_dirMoves.psm1 -Verbose
 Import-Module -Name $dotFiles\psModules\datalogger\datalogger.psm1 -Verbose
