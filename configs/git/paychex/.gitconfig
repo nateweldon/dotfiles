@@ -1,0 +1,33 @@
+[credential]
+	helper = manager
+	modalPrompt = true
+[user]
+	name = Brule, Jon
+	email = jbrule@paychex.com
+[http]
+	sslVerify = false
+	proxy = 127.0.0.1:3128
+[https]
+    sslVerify = false
+	proxy = 127.0.0.1:3128
+[url "https://"]
+	insteadOf = git://
+[apply]
+    # do not warn about missing whitespace at EOF
+    whitespace = nowarn
+
+[core]
+	autocrlf = true
+	filemode = false
+	excludesfile = ~/.gitignore_global
+[merge]
+	        tool = kdiff3
+[mergetool "kdiff3"]
+	        path = C:/Program Files/KDiff3/kdiff3.exe
+		        trustExitCode = false
+[diff]
+	        guitool = kdiff3
+[difftool "kdiff3"]
+	        path = C:/Program Files/KDiff3/kdiff3.exe
+		        trustExitCode = false
+
