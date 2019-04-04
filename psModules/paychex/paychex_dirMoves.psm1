@@ -1,4 +1,4 @@
-function cntlm {
+function cd_cntlm {
     <#
 .SYNOPSIS
 
@@ -9,10 +9,11 @@ Moves to the cntlm directory
 Uses cd "C:\Program Files (x86)\Cntlm"
 
 #>
-    cd "C:\Program Files (x86)\Cntlm"
+    Set-Location "C:\Program Files (x86)\Cntlm"
 }
+Set-Alias cd-cntlm cd_cntlm
 
-function apache {
+function cd_apache {
     <#
 .SYNOPSIS
 
@@ -23,5 +24,18 @@ Moves to the cntlm directory
 Uses cd "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\extra"
 
 #>
-    cd "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\extra"
+    Set-Location "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\extra"
 }
+Set-Alias cd-apache cd_apache
+
+function cd_repo {
+    Set-Location C:/repo
+}
+Set-Alias cd-repo cd_repo
+
+function cd_cc {
+    Set-Location C:/copyclient
+}
+Set-Alias cd-cc cd_cc
+
+
