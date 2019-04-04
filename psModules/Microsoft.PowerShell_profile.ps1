@@ -91,19 +91,20 @@ $env:WORKSPACE = "$env:USERPROFILE\workspace"
 Set-Location $env:WORKSPACE
 
 
-function Reload-Profile {
+function Reload_Profile {
     @(
         $Profile.AllUsersAllHosts,
         $Profile.AllUsersCurrentHost,
         $Profile.CurrentUserAllHosts,
         $Profile.CurrentUserCurrentHost
-    ) | % {
+    ) | ForEach-Object {
         if(Test-Path $_){
             Write-Verbose "Running $_"
             . $_
         }
     }    
 }
+Set-Alias reload-profile Reload_Profile
 
 function PrintPath{
     ($env:Path).Replace(';',"`n")
