@@ -64,7 +64,7 @@ Set-PSReadlineKeyHandler -Chord 'Shift+Tab' -Function Complete
 Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 
 #Global Imports files 
-Import-Module $env:USERPROFILE\dotfiles\psModules\dotFileImporter.psm1 -DisableNameChecking
+Import-Module $env:USERPROFILE\dotfiles\psModules\dotFileImporter.psm1
 
 # Suppose to speed up admin power shell settings
 #$env:path = [Runtime.InteropServices.RuntimeEnvironment]::GetRuntimeDirectory()

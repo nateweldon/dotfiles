@@ -20,3 +20,6 @@ stopWebLogic.cmd
 #> 
     & C:\Oracle\Middleware_122100\user_projects\domains\flex\bin\stopWebLogic.cmd
 }
+
+Set-Alias wl-start startwl
+Set-Alias wl-stop stopwl
