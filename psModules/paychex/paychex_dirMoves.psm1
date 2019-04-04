@@ -6,7 +6,7 @@ Moves to the cntlm directory
 
 .DESCRIPTION
 
-Uses cd "C:\Program Files (x86)\Cntlm"
+Uses Set-Location "C:\Program Files (x86)\Cntlm"
 
 #>
     Set-Location "C:\Program Files (x86)\Cntlm"
@@ -21,7 +21,7 @@ Moves to the cntlm directory
 
 .DESCRIPTION
 
-Uses cd "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\extra"
+Uses Set-Location "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\extra"
 
 #>
     Set-Location "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\extra"
@@ -29,7 +29,7 @@ Uses cd "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\extra"
 Set-Alias cd-apache cd_apache
 
 function cd_repo {
-    Set-Location C:/repo
+    Set-Location $env:WORKSPACE
 }
 Set-Alias cd-repo cd_repo
 
