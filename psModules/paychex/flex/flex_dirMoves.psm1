@@ -46,9 +46,9 @@ function cd_remote {
 .SYNOPSIS
 Moves to top level remote
 .DESCRIPTION
-Set-Location $env:REPO/remote/
+Set-Location $env:REPO/remotes/
 #>
-    Set-Location $env:REPO/remote/
+    Set-Location $env:REPO/remotes/
 }
 Set-Alias cd-remote cd_remote
 Set-Alias remote cd_remote
