@@ -87,8 +87,8 @@ $env:path += ";" + (Get-Item "Env:ProgramFiles").Value + "\Git\bin"
 $env:path += ";" + (Get-Item "Env:ProgramFiles").Value + "\Git\usr\bin"
 
 # SetPath to start in the users workspace
-$env:WORKSPACE = "$env:USERPROFILE\workspace"
-Set-Location $env:WORKSPACE
+$env:LOCAL_WORKSPACE = "$env:USERPROFILE\workspace"
+Set-Location $env:LOCAL_WORKSPACE
 
 
 function Reload_Profile {
