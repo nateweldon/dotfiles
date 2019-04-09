@@ -29,7 +29,7 @@ Uses Set-Location "C:\Program Files (x86)\Apache Software Foundation\Apache2.2\c
 Set-Alias cd-apache cd_apache
 
 function cd_repo {
-    Set-Location $env:WORKSPACE
+    Set-Location $env:REPO
 }
 Set-Alias cd-repo cd_repo
 
