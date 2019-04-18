@@ -7,6 +7,8 @@ Import-Module -Name $dotFiles\psModules\paychex\ca\ca_dirMoves.psm1
 Import-Module -Name $dotFiles\psModules\paychex\ca\ca_Commands.psm1
 Import-Module -Name $dotFiles\psModules\paychex\docmgmt\docmgmt_dirMoves.psm1
 Import-Module -Name $dotFiles\psModules\paychex\docmgmt\docmgmt_Commands.psm1
+Import-Module -Name $dotFiles\psModules\paychex\esign\esign_dirMoves.psm1
+Import-Module -Name $dotFiles\psModules\paychex\esign\esign_Commands.psm1
 Import-Module -Name $dotFiles\psModules\paychex\flex\flex_dirMoves.psm1
 Import-Module -Name $dotFiles\psModules\paychex\flex\flex_Commands.psm1
 Import-Module -Name $dotFiles\psModules\datalogger\datalogger.psm1

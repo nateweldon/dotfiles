@@ -52,16 +52,3 @@ Set-Alias cd-docalfsvc cd_docmanagement_alfresco_svc
 Set-Alias cd-das cd_docmanagement_alfresco_svc
 Set-Alias cd-dmas cd_docmanagement_alfresco_svc
 Set-Alias hrdmas cd_docmanagement_alfresco_svc
-################################################################################################
-function cd_esignature_svc {
-<#
-.SYNOPSIS
- Move to HR E-Signature service code directory
-.DESCRIPTION
-Set-Location $env:REPO/remotes/esignature-svc
-#>
-	Set-Location $env:REPO/remotes/esignature-svc
-}
-Set-Alias cd-esig cd_esignature_svc
-Set-Alias cd-ess cd_esignature_svc
-Set-Alias hress cd_esignature_svc
