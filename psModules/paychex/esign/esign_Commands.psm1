@@ -25,7 +25,7 @@ Uses the esignature-svc LOB service to add a signature page to an existing PDF d
 
         [Parameter()]
         [String]
-        $claimticketnumber = "" ,
+        $claimticketnumber,
 
         [Parameter()]
         [switch]
@@ -72,22 +72,23 @@ Uses the esignature-svc LOB service to add a signature page to an existing PDF d
             -o $output `
             $api
     } elseif ($endpoint -eq "sign-document") {
-        if ($claimTicketNumber -ne $null) {
+        if ([string]::IsNullOrEmpty($claimTicketNumber)) {
+            "Calling [$api] using document..."
+            curl -v `
+                -H "Content-Type:multipart/form-data" `
+                -F"metadata=@$metadata;type=application/json" `
+                -F"signatureData=@$signature" `
+                -F"disclaimer=@$disclaimer" `
+                -F"document=@$document" `
+                -o $output `
+                $api
+        } else {
             "Calling [$api] using claimticket..."
             curl -v `
                 -H "Content-Type:multipart/form-data" `
                 -F"metadata=@$metadata;type=application/json" `
                 -F"signatureData=@$signature" `
                 -F"claimTicketNumber=$claimticketnumber" `
-                -o $output `
-                $api
-        } else {
-            "Calling [$api] using document..."
-            curl -v `
-                -H "Content-Type:multipart/form-data" `
-                -F"metadata=@$metadata;type=application/json" `
-                -F"signatureData=@$signature" `
-                -F"document=@$document" `
                 -o $output `
                 $api
         }
