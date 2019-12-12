@@ -1,14 +1,23 @@
 function cd_ca {
+    ca-ant
     Set-Location $env:REPO/ca_payx/payx/
 }
 Set-Alias cd-ca cd_ca
 
+function cd_cadesktop {
+    cd-ca
+    Set-Location desktop/dev
+}
+Set-Alias cd-cadesktop cd_cadesktop
+
 function cd_cadomain {
-    Set-Location $env:REPO/ca_payx/payx/domain/dev
+    cd-ca
+    Set-Location domain/dev
 }
 Set-Alias cd-cadomain cd_cadomain
 
 function cd_caproxy {
-    Set-Location $env:REPO/ca_payx/payx/enterprise-services/proxywebservices/dev
+    cd-ca
+    Set-Location enterprise-services/proxywebservices/dev
 }
 Set-Alias cd-caproxy cd_caproxy
