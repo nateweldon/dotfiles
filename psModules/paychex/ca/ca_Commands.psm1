@@ -29,7 +29,6 @@ Set-Alias ca-dbsetup ca_dbsetup
 
 function ca_update_db {
     cd-cadomain
-    ant db.update.views
     ant db.upgrade
     ant db.loadprivate
     cd-ca
