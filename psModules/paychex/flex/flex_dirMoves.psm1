@@ -55,7 +55,7 @@ Set-Alias remote cd_remote
 
 ################################################################################################
 function cd_app_payroll {
-  <#git 
+  <#git
 .SYNOPSIS
 Moves to flex app_payroll directory
 .DESCRIPTION
@@ -108,3 +108,29 @@ Set-Location $env:REPO/develop/app_docmanagement/
 Set-Alias cd-docmanagement cd_app_docmanagement
 Set-Alias cd-appdoc cd_app_docmanagement
 Set-Alias cd-doc cd_app_docmanagement
+
+################################################################################################
+function cd_tasks_static {
+    <#
+.SYNOPSIS
+Move to flex tasks_static directory
+.DESCRIPTION
+Set-Location $env:REPO/develop/tasks_static/
+#>
+    Set-Location $env:REPO/develop/tasks_static/
+}
+Set-Alias cd-tasks-static cd_tasks_static
+Set-Alias cd-ts cd_tasks_static
+
+################################################################################################
+function cd_tasks_remote {
+    <#
+.SYNOPSIS
+Move to flex tasks_remote directory
+.DESCRIPTION
+Set-Location $env:REPO/remotes/tasks_remote/
+#>
+    Set-Location $env:REPO/remotes/tasks_remote/
+}
+Set-Alias cd-tasks-remote cd_tasks_remote
+Set-Alias cd-tr cd_tasks_remote
