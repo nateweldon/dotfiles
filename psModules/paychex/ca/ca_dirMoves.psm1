@@ -9,6 +9,7 @@ function cd_cadesktop {
     Set-Location desktop/dev
 }
 Set-Alias cd-cadesktop cd_cadesktop
+Set-Alias cd-desktop cd_cadesktop
 
 function cd_cadomain {
     cd-ca
