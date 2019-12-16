@@ -1,6 +1,6 @@
 function cd_ca {
     ca-ant
-    Set-Location $env:REPO/ca_payx/payx/
+    Set-Location $env:REPO/core/ca_payx/payx/
 }
 Set-Alias cd-ca cd_ca
 
