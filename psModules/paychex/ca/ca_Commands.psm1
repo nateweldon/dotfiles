@@ -16,7 +16,7 @@ Note %ANT_HOME%/bin is in path
 
 #>
     ca-javaops
-    $Env:ANT_HOME = "$env:REPO\ca_payx\payx\tools\lib\ant"
+    $Env:ANT_HOME = "$env:REPO\core\ca_payx\payx\tools\lib\ant"
 }
 Set-Alias ca-ant Set-CoreAnt
 
