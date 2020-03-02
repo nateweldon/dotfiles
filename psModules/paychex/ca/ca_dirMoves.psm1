@@ -1,3 +1,9 @@
+function cd_core {
+    ca-ant
+    Set-Location $env:REPO/core
+}
+Set-Alias cd-core cd_core
+
 function cd_ca {
     ca-ant
     Set-Location $env:REPO/core/ca_payx/payx/
@@ -22,3 +28,14 @@ function cd_caproxy {
     Set-Location enterprise-services/proxywebservices/dev
 }
 Set-Alias cd-caproxy cd_caproxy
+
+#########################
+# Microservices
+#########################
+
+function cd_microservices {
+    ca-ant
+    Set-Location $env:REPO/core/microservices
+}
+Set-Alias cd-microservices cd_microservices
+Set-Alias cd-ms cd_microservices
