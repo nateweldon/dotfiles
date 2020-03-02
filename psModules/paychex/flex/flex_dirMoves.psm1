@@ -134,3 +134,10 @@ Set-Location $env:REPO/remotes/tasks_remote/
 }
 Set-Alias cd-tasks-remote cd_tasks_remote
 Set-Alias cd-tr cd_tasks_remote
+
+######################
+function cd_company_tasks {
+    Set-Location $env:REPO/remotes/company-tasks-svc
+}
+Set-Alias cd-company-tasks cd_company_tasks
+Set-Alias cd-ct cd_company_tasks
