@@ -21,3 +21,6 @@ log/
 .settings
 .vscode/
 bin/
+
+#ignore user specific information
+user.gitconfig
