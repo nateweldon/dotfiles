@@ -2,8 +2,8 @@
 	helper = manager
 	modalPrompt = true
 
-[includeIf "gitdir:~/dotfiles/configs/github/"]
-  path = ~/dotfiles/configs/github/user.gitconfig/
+[includeIf "gitdir:~/dotfiles/configs/git/github/"]
+  path = ~/dotfiles/configs/git/github/user.gitconfig/
 
 [http]
 	sslVerify = false

@@ -2,9 +2,8 @@
 	helper = manager
 	modalPrompt = true
 	
-[includeIf "gitdir:~/dotfiles/configs/bitBucket/"]
-  path = ~/dotfiles/configs/bitBucket/user.gitconfig/
-
+[includeIf "gitdir:~/dotfiles/configs/git/bitBucket/"]
+  path = ~/dotfiles/configs/git/bitBucket/user.gitconfig/
 
 [http]
 	sslVerify = false
@@ -21,7 +20,7 @@
 [core]
 	autocrlf = true
 	filemode = false
-	excludesfile = ~/dotfiles/configs/.gitignore_global
+	excludesfile = ~/dotfiles/configs/git/.gitignore_global
 [merge]
 	        tool = kdiff3
 [mergetool "kdiff3"]
