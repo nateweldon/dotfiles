@@ -1,9 +1,10 @@
 [credential]
 	helper = manager
 	modalPrompt = true
-[user]
-	name = jon_brule
-	email = brulejr@gmail.com
+
+[includeIf "gitdir:~/dotfiles/configs/github/"]
+  path = ~/dotfiles/configs/github/user.gitconfig/
+
 [http]
 	sslVerify = false
 	proxy = http://proxyweb-automation.paychex.com:80
@@ -19,7 +20,7 @@
 [core]
 	autocrlf = true
 	filemode = false
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/dotfiles/configs/.gitignore_global
 [merge]
 	        tool = kdiff3
 [mergetool "kdiff3"]
