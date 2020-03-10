@@ -40,7 +40,7 @@ function mklnk {
     New-Item -Path $link -ItemType SymbolicLink -Value $target -Force
 }
 
-function swap_code {
+function SetGitPaychex {
             <#
 .SYNOPSIS
 
@@ -55,7 +55,7 @@ New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:US
     New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\paychex\.gitconfig -Force
 }
 
-function swap_bucket {
+function SetGitBitbucket {
                 <#
 .SYNOPSIS
 
@@ -69,7 +69,7 @@ New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:US
      New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\bitbucket\.gitconfig -Force
 }
 
-function swap_hub {
+function SetGitGitHub {
                 <#
 .SYNOPSIS
 
@@ -83,6 +83,11 @@ New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:US
      Write-Host "Creating Sym Link for gitconfig -> gitHub.com"
      New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\github\.gitconfig -Force
 }
+
+function cd_dotfiles {
+    Set-Location ~/dotfiles
+}
+Set-Alias cd-dot cd_dotfiles
 
 function Set-PSTitle {
               <#

@@ -2,8 +2,8 @@
 	helper = manager
 	modalPrompt = true
 
-[includeIf "gitdir:~/dotfiles/configs/git/github/"]
-  path = ~/dotfiles/configs/git/github/user.gitconfig/
+[include]
+  path = ~/dotfiles/configs/git/github/.gitconfig-user
 
 [http]
 	sslVerify = false
@@ -20,7 +20,7 @@
 [core]
 	autocrlf = true
 	filemode = false
-	excludesfile = ~/dotfiles/configs/.gitignore_global
+	excludesfile = ~/dotfiles/configs/git/.gitignore_global
 [merge]
 	        tool = kdiff3
 [mergetool "kdiff3"]

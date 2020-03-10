@@ -2,8 +2,9 @@
 	helper = manager
 	modalPrompt = true
 	
-[includeIf "gitdir:~/dotfiles/configs/git/paychex/"]
-  path = ~/dotfiles/configs/git/paychex/user.gitconfig/
+
+[include]
+  path = ~/dotfiles/configs/git/paychex/.gitconfig-user
 
 [http]
 	sslVerify = false

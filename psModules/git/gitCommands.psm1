@@ -21,9 +21,25 @@ gita
 .NOTES
 git add from current directory down 
 #>  
+
     git add .
 }
 Set-Alias -Name gita -Value AddAllFiles
+
+
+function GitCommitAmmend() {
+    <#
+.SYNOPSIS
+git commit --amend
+.DESCRIPTION 
+gita
+.NOTES
+git ammends commit
+#>  
+
+    git commit --amend
+}
+Set-Alias -Name gitca -Value GitCommitAmmend
 
 function pushOrigin() {
  <#

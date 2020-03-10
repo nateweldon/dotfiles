@@ -2,8 +2,8 @@
 	helper = manager
 	modalPrompt = true
 	
-[includeIf "gitdir:~/dotfiles/configs/git/bitBucket/"]
-  path = ~/dotfiles/configs/git/bitBucket/user.gitconfig/
+[include]
+  path = ~/dotfiles/configs/git/bitBucket/.gitconfig-user
 
 [http]
 	sslVerify = false
