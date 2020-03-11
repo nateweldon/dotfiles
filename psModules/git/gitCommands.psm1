@@ -210,4 +210,4 @@ Function Get-GitConfig {
     } #end Get-GitConfig
      
     #add an optional alias
-    Set-Alias -Name gcc -Value Get-GitConfig
+    Set-Alias -Name ggc -Value Get-GitConfig
