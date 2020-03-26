@@ -40,7 +40,7 @@ function mklnk {
     New-Item -Path $link -ItemType SymbolicLink -Value $target -Force
 }
 
-function swap_code {
+function SetGitPaychex {
             <#
 .SYNOPSIS
 
@@ -55,7 +55,7 @@ New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:US
     New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\paychex\.gitconfig -Force
 }
 
-function swap_bucket {
+function SetGitBitbucket {
                 <#
 .SYNOPSIS
 
@@ -69,7 +69,7 @@ New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:US
      New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\bitbucket\.gitconfig -Force
 }
 
-function swap_hub {
+function SetGitGitHub {
                 <#
 .SYNOPSIS
 
@@ -83,6 +83,11 @@ New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:US
      Write-Host "Creating Sym Link for gitconfig -> gitHub.com"
      New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\github\.gitconfig -Force
 }
+
+function cd_dotfiles {
+    Set-Location ~/dotfiles
+}
+Set-Alias cd-dot cd_dotfiles
 
 function Set-PSTitle {
               <#
@@ -101,4 +106,91 @@ update the title to indicate what the window is doing
 
 
 Set-Alias -Name runH -Value Invoke-History
+
+function Write-Pretty {
+      <#
+.SYNOPSIS
+
+Added more information around print statments
+
+.DESCRIPTION
+Write-Pretty "Test" Info
+Write-Pretty "Test" Error
+Write-Pretty "Test" Warning
+#>
+    [cmdletbinding()]
+    param(
+    [Parameter(
+                Mandatory         = $True,
+                ValueFromPipeline = $True
+               )]
+    [Alias('Text')]
+    $prettyText,
+    [Parameter(Mandatory=$false)]
+    [Alias('Type')]
+    $textType
+    )
+
+    Begin {
+    
+        Write-Host `n 
+
+    }
+
+    Process {
+
+        ForEach ($textItem in $prettyText) {
+
+            Switch ($textType) {
+
+            
+                {$_ -eq 'Error'} {
+
+                    Write-Host -NoNewline "[" -ForegroundColor White 
+                    Write-Host -NoNewline "Error" -ForegroundColor Red -BackgroundColor DarkBlue
+                    Write-Host -NoNewline "]" -ForegroundColor White 
+                    Write-Host " $textItem" -ForegroundColor Red 
+
+                }
+
+
+                {$_ -eq 'Warning'} {
+
+                    Write-Host -NoNewline "[" -ForegroundColor White
+                    Write-Host -NoNewline "Warning" -ForegroundColor Yellow -BackgroundColor Blue
+                    Write-Host -NoNewline "]" -ForegroundColor White
+                    Write-Host " $textItem" -ForegroundColor Yellow
+
+
+                }
+
+                {$_ -eq 'Info' -or $_ -eq $null} {
+
+                    Write-Host -NoNewline "[" -ForegroundColor White
+                    Write-Host -NoNewline "Info" -ForegroundColor Green -BackgroundColor Black
+                    Write-Host -NoNewline "]" -ForegroundColor White
+                    Write-Host " $textItem" -ForegroundColor White
+
+                }
+
+                Default { 
+        
+                    Write-Host $textItem
+        
+                }
+
+            }
+
+        }
+
+    }
+
+    End {
+    
+        Write-Host `n
+
+    }
+
+}
+
 

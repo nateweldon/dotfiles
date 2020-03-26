@@ -1,9 +1,11 @@
 [credential]
 	helper = manager
 	modalPrompt = true
-[user]
-	name = Brule, Jon
-	email = jbrule@paychex.com
+	
+
+[include]
+  path = ~/dotfiles/configs/git/paychex/.gitconfig-user
+
 [http]
 	sslVerify = false
 	proxy = 127.0.0.1:3128
@@ -19,7 +21,7 @@
 [core]
 	autocrlf = true
 	filemode = false
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/dotfiles/configs/git/.gitignore_global
 [merge]
 	        tool = kdiff3
 [mergetool "kdiff3"]
