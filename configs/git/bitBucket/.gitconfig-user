@@ -1,5 +1,0 @@
-[user]
-	name = nate_weldon
-	email = nate.weldon@gmail.com
-[core]
-    editor = 'subl' --wait
