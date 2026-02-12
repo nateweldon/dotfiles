@@ -1,0 +1,35 @@
+
+Long 
+
+<#
+.SYNOPSIS
+
+.DESCRIPTION
+
+.PARAMETER Name
+
+.PARAMETER Extension
+
+.INPUTS
+
+.OUTPUTS
+
+.EXAMPLE
+
+.EXAMPLE
+
+.EXAMPLE
+
+.LINK
+
+.LINK
+
+#>
+
+Short
+
+<#
+.SYNOPSIS
+
+.DESCRIPTION
+#>
