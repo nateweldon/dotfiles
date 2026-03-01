@@ -1,9 +1,10 @@
+[user]
+	name = nateweldon
+	email = nate.weldon@gmail.com
+
 [credential]
 	helper = manager
 	modalPrompt = true
-
-[include]
-  path = ~/workspace/dotfiles/configs/git/github/.gitconfig-user
 
 [http]
 	sslVerify = false

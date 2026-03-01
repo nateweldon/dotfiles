@@ -5,8 +5,45 @@ function Test-Administrator {
     (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
 }
 
-# Oh My Posh prompt - powerlevel10k_rainbow theme
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\powerlevel10k_rainbow.omp.json" | Invoke-Expression
+# Initialize Git Profile Environment Variable
+# This should be done before Oh My Posh init
+$gitconfigPath = "$env:USERPROFILE\.gitconfig"
+if (Test-Path $gitconfigPath) {
+    $item = Get-Item $gitconfigPath
+    if ($item.LinkType -eq "SymbolicLink") {
+        $target = $item.Target
+        if ($target -like "*github*") {
+            $env:GIT_PROFILE = "GitHub"
+            $env:GIT_PROFILE_ICON = "󰊤"
+        }
+        elseif ($target -like "*onestream*" -or $target -like "*OneStream*") {
+            $env:GIT_PROFILE = "OneStream"
+            $env:GIT_PROFILE_ICON = [char]0x2298  # ⊘ circled slash
+        }
+        else {
+            $env:GIT_PROFILE = "Unknown"
+            $env:GIT_PROFILE_ICON = ""
+        }
+    }
+    else {
+        $env:GIT_PROFILE = "Not Linked"
+        $env:GIT_PROFILE_ICON = "⚠"
+    }
+}
+else {
+    $env:GIT_PROFILE = "None"
+    $env:GIT_PROFILE_ICON = "✗"
+}
+
+# Oh My Posh prompt - custom theme with git profile display
+$customThemePath = "$env:USERPROFILE\workspace\dotfiles\configs\ohmyposh\custom-with-gitprofile.omp.json"
+if (Test-Path $customThemePath) {
+    oh-my-posh init pwsh --config $customThemePath | Invoke-Expression
+}
+else {
+    # Fallback to default theme
+    oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\powerlevel10k_rainbow.omp.json" | Invoke-Expression
+}
 
 #posh-git import and settings 
 #note: requires a soft link from $env:USERPROFILE\Document\PowerShell\Modules\posh-git to the git repo's src directory (see C:\tools)

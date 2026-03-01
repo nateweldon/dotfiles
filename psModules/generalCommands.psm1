@@ -27,20 +27,6 @@ function mklnk {
     New-Item -Path $link -ItemType SymbolicLink -Value $target -Force
 }
 
-function SetGitBitbucket {
-                <#
-.SYNOPSIS
-
-Switches global git config to public bitbucket version 
-
-.DESCRIPTION
-New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\bitbucket\.gitconfig -Force
-
-#>
-     Write-Host "Creating Sym Link for gitconfig -> bitbucket.com"
-     New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\workspace\dotfiles\configs\git\bitbucket\.gitconfig -Force
-}
-
 function SetGitGitHub {
                 <#
 .SYNOPSIS
@@ -52,9 +38,54 @@ New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:US
 
 
 #>
-     Write-Host "Creating Sym Link for gitconfig -> gitHub.com"
-     New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\workspace\dotfiles\configs\git\github\.gitconfig -Force
+     Write-Host "Creating Sym Link for gitconfig -> gitHub.com" -ForegroundColor Cyan
+     New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\workspace\dotfiles\configs\git\github\.gitconfig -Force | Out-Null
+     
+     # Update environment variable for Oh My Posh
+     $env:GIT_PROFILE = "GitHub"
+     $env:GIT_PROFILE_ICON = "󰊤"
+     
+     # Verify git config
+     $userName = git config --global user.name
+     $userEmail = git config --global user.email
+     
+     Write-Host "✓ Switched to GitHub profile" -ForegroundColor Green
+     Write-Host "  User: $userName <$userEmail>" -ForegroundColor Gray
+     Write-Host "  Prompt will update on next command" -ForegroundColor Yellow
 }
+
+function SetGitOneStream {
+                <#
+.SYNOPSIS
+
+Switches global git config to OneStream Software Azure DevOps version
+
+.DESCRIPTION
+New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\dotfiles\configs\git\oneStreamSoftware\.gitconfig -Force
+
+
+#>
+     Write-Host "Creating Sym Link for gitconfig -> OneStream Software (Azure DevOps)" -ForegroundColor Cyan
+     New-Item -Path $env:USERPROFILE\.gitconfig -ItemType SymbolicLink -Value $env:USERPROFILE\workspace\dotfiles\configs\git\oneStreamSoftware\.gitconfig -Force | Out-Null
+     
+     # Update environment variable for Oh My Posh
+     $env:GIT_PROFILE = "OneStream"
+     $global:env:GIT_PROFILE_ICON = [char]0x2298  # ⊘ circled slash
+     
+     # Verify git config
+     $userName = git config --global user.name
+     $userEmail = git config --global user.email
+     
+     Write-Host "✓ Switched to OneStream profile" -ForegroundColor Green
+     Write-Host "  User: $userName <$userEmail>" -ForegroundColor Gray
+     Write-Host "  Prompt will update on next command" -ForegroundColor Yellow
+}
+
+# Create convenient aliases for quick switching
+Set-Alias -Name gitgithub -Value SetGitGitHub -Description "Switch to GitHub git profile"
+Set-Alias -Name gitonestream -Value SetGitOneStream -Description "Switch to OneStream Software/Azure DevOps git profile"
+Set-Alias -Name gitazure -Value SetGitOneStream -Description "Switch to Azure DevOps git profile (OneStream)"
+Set-Alias -Name gitwork -Value SetGitOneStream -Description "Switch to work git profile (OneStream)"
 
 function cd_dotfiles {
     Set-Location $env:USERPROFILE\workspace\dotfiles
