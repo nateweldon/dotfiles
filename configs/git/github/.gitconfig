@@ -8,12 +8,12 @@
 
 [http]
 	sslVerify = false
-	proxy = http://proxyweb-automation.paychex.com:80
 [https]
-    sslVerify = false
-	proxy = http://proxyweb-automation.paychex.com:80
-[url "https://"]
-	insteadOf = git://
+	sslVerify = false
+
+# Rewrite GitHub HTTPS URLs to SSH automatically
+[url "git@github.com:"]
+	insteadOf = https://github.com/
 [apply]
     # do not warn about missing whitespace at EOF
     whitespace = nowarn

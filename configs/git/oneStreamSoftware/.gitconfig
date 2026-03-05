@@ -8,12 +8,12 @@
 
 [http]
 	sslVerify = false
-	proxy = 127.0.0.1:3128
 [https]
-    sslVerify = false
-	proxy = 127.0.0.1:3128
-[url "https://"]
-	insteadOf = git://
+	sslVerify = false
+
+# Rewrite Azure DevOps HTTPS URLs to SSH automatically
+[url "git@ssh.dev.azure.com:v3/OneStreamPlatformEng/"]
+	insteadOf = https://OneStreamPlatformEng@dev.azure.com/OneStreamPlatformEng/
 [apply]
     # do not warn about missing whitespace at EOF
     whitespace = nowarn
