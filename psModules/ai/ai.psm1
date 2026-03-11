@@ -137,15 +137,18 @@ function Start-AIChat {
 function Get-GitSummary {
     <#
     .SYNOPSIS
-        Summarize local git changes using AI.
+        Summarize local git changes using AI and commit with the suggested message.
     .EXAMPLE
         Get-GitSummary
         Get-GitSummary -Staged
         Get-GitSummary -Model gpt-4o-mini
+        Get-GitSummary -NoCommit
         git-ai
+        git-ai -NoCommit
     #>
     param(
         [switch]$Staged,
+        [switch]$NoCommit,
         [string]$Model = $script:AI_DEFAULT_MODEL,
         [string]$Path = (Get-Location).Path
     )
@@ -179,7 +182,10 @@ function Get-GitSummary {
 You are a senior developer reviewing git changes. Summarize the changes clearly and concisely:
 1. What changed (files and purpose)
 2. Key additions or removals
-3. Suggested commit message (conventional commits format)
+3. Suggested commit message (conventional commits format) — wrap it in a fenced code block, e.g.:
+   ``````
+   chore(scope): short description
+   ``````
 Be brief. Use bullet points. No fluff.
 "@
 
@@ -190,10 +196,36 @@ Be brief. Use bullet points. No fluff.
     Write-Host ""
 
     $result = Invoke-AI -Prompt $content -Model $Model -SystemPrompt $systemPrompt
-    if ($result) {
-        Write-Host $result -ForegroundColor White
-        Write-Host ""
+    if (-not $result) { return }
+
+    Write-Host $result -ForegroundColor White
+    Write-Host ""
+
+    if ($NoCommit) { return }
+
+    # Extract commit message: try fenced code block first, then conventional commit pattern
+    $commitMsg = $null
+    if ($result -match '(?s)```[^\n]*\n(.*?)\n```') {
+        $commitMsg = $Matches[1].Trim()
     }
+    if (-not $commitMsg) {
+        # Fallback: find a conventional commit line (feat/fix/chore/etc.)
+        $ccPattern = '(?m)^\s*[-*]?\s*((?:feat|fix|docs|style|refactor|test|build|ci|chore|perf|revert)(?:\(.+?\))?!?:\s+.+)$'
+        if ($result -match $ccPattern) {
+            $commitMsg = $Matches[1].Trim()
+        }
+    }
+
+    if (-not $commitMsg) {
+        Write-Host "  ⚠ Could not extract commit message from response." -ForegroundColor Yellow
+        return
+    }
+
+    Write-Host "  ◆ Committing with: " -ForegroundColor DarkGray -NoNewline
+    Write-Host $commitMsg -ForegroundColor Cyan
+    Write-Host ""
+
+    git -C $Path commit -m $commitMsg
 }
 
 Set-Alias ask    Send-AI
