@@ -61,13 +61,13 @@ function Invoke-AI {
     }
 }
 
-function Ask-AI {
+function Send-AI {
     <#
     .SYNOPSIS
         Ask the AI a question and print the response.
     .EXAMPLE
-        Ask-AI "How do I reverse a string in PowerShell?"
-        Ask-AI "Summarize this" -Model gpt-4o-mini
+        Send-AI "How do I reverse a string in PowerShell?"
+        Send-AI "Summarize this" -Model gpt-4o-mini
     #>
     param(
         [Parameter(ValueFromPipeline=$true, Position=0)]
@@ -196,8 +196,8 @@ Be brief. Use bullet points. No fluff.
     }
 }
 
-Set-Alias ask    Ask-AI
+Set-Alias ask    Send-AI
 Set-Alias ai-chat Start-AIChat
 Set-Alias git-ai  Get-GitSummary
 
-Export-ModuleMember -Function Invoke-AI, Ask-AI, Start-AIChat, Get-GitSummary -Alias ask, ai-chat, git-ai
+Export-ModuleMember -Function Invoke-AI, Send-AI, Start-AIChat, Get-GitSummary -Alias ask, ai-chat, git-ai
