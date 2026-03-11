@@ -19,7 +19,7 @@ foreach ($psm1 in $psm1Files) {
 
     try {
         $before = (Get-Alias -ErrorAction SilentlyContinue | Measure-Object).Count
-        Import-Module -Name $psm1 -ErrorAction Stop -DisableNameChecking
+Import-Module -Name $psm1 -ErrorAction Stop -DisableNameChecking -WarningAction SilentlyContinue
         $after  = (Get-Alias -ErrorAction SilentlyContinue | Measure-Object).Count
         $newAliases = $after - $before
         $loaded += $label
