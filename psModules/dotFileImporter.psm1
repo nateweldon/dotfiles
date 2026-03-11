@@ -4,14 +4,21 @@ $psm1Files = Get-ChildItem -Path "$env:USERPROFILE\workspace\dotfiles" -Recurse 
 # ── Startup Banner ──────────────────────────────────────────────────────────
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 
+$dotfilesVersion = & git -C "$env:USERPROFILE\workspace\dotfiles" describe --tags --always 2>$null
+if (-not $dotfilesVersion) { $dotfilesVersion = "unknown" }
+$username = $env:USERNAME
+
 Write-Host ""
-Write-Host "  ┌──────────────────────────────────────────────┐" -ForegroundColor DarkCyan
-Write-Host "  │" -ForegroundColor DarkCyan -NoNewline
-Write-Host "            nweldon " -ForegroundColor Cyan -NoNewline
-Write-Host " · " -ForegroundColor DarkGray -NoNewline
-Write-Host " dotfiles              " -ForegroundColor DarkCyan -NoNewline
-Write-Host "│" -ForegroundColor DarkCyan
-Write-Host "  └──────────────────────────────────────────────┘" -ForegroundColor DarkCyan
+Write-Host "   \\ | //   " -ForegroundColor DarkGreen -NoNewline
+Write-Host "Welcome back, " -ForegroundColor DarkGray -NoNewline
+Write-Host $username -ForegroundColor Cyan
+Write-Host "    \_^_/    " -ForegroundColor DarkGreen -NoNewline
+Write-Host "dotfiles " -ForegroundColor DarkGray -NoNewline
+Write-Host "v$dotfilesVersion" -ForegroundColor Yellow
+Write-Host "   ( o o )  " -ForegroundColor DarkGreen
+Write-Host "    \ Y /   " -ForegroundColor DarkGreen
+Write-Host "     | |    " -ForegroundColor DarkGreen
+Write-Host "    /   \   " -ForegroundColor DarkGreen
 
 # ── Load modules silently, collect results ──────────────────────────────────
 $loaded    = @()
