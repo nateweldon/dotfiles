@@ -25,6 +25,7 @@
 	editor = code --wait
 [merge]
 	tool = vscode
+	ff = true
 [mergetool "vscode"]
 	cmd = code --wait $MERGED
 [diff]

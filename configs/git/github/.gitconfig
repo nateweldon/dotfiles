@@ -31,3 +31,5 @@
 	tool = vscode
 [difftool "vscode"]
 	cmd = code --wait --diff $LOCAL $REMOTE
+[safe]
+	directory = C:/Users/nweldon/workspace/repos/OneStreamPlatformEng/OneStreamPlatform/onestream-iam
