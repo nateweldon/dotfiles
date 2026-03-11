@@ -1,26 +1,13 @@
 $excluded = @("dotFileImporter.psm1")
 $psm1Files = Get-ChildItem -Path "$env:USERPROFILE\workspace\dotfiles" -Recurse *.psm1 -Exclude $excluded
 
-# ── Startup Banner ──────────────────────────────────────────────────────────
-$stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-
+# ── Version & User ───────────────────────────────────────────────────────────
 $dotfilesVersion = & git -C "$env:USERPROFILE\workspace\dotfiles" describe --tags --always 2>$null
 if (-not $dotfilesVersion) { $dotfilesVersion = "unknown" }
 $username = $env:USERNAME
 
-Write-Host ""
-Write-Host "   \\ | //   " -ForegroundColor DarkGreen -NoNewline
-Write-Host "Welcome back, " -ForegroundColor DarkGray -NoNewline
-Write-Host $username -ForegroundColor Cyan
-Write-Host "    \_^_/    " -ForegroundColor DarkGreen -NoNewline
-Write-Host "dotfiles " -ForegroundColor DarkGray -NoNewline
-Write-Host "v$dotfilesVersion" -ForegroundColor Yellow
-Write-Host "   ( o o )  " -ForegroundColor DarkGreen
-Write-Host "    \ Y /   " -ForegroundColor DarkGreen
-Write-Host "     | |    " -ForegroundColor DarkGreen
-Write-Host "    /   \   " -ForegroundColor DarkGreen
-
 # ── Load modules silently, collect results ──────────────────────────────────
+$stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 $loaded    = @()
 $failed    = @()
 $aliases   = @()
@@ -37,7 +24,6 @@ foreach ($psm1 in $psm1Files) {
         $newAliases = $after - $before
         $loaded += $label
         if ($newAliases -gt 0) {
-            # Grab the aliases that were just added by this module
             $moduleAliases = (Get-Module $moduleName -ErrorAction SilentlyContinue |
                 Select-Object -ExpandProperty ExportedAliases -ErrorAction SilentlyContinue).Keys
             if ($moduleAliases) { $aliases += $moduleAliases }
@@ -47,42 +33,75 @@ foreach ($psm1 in $psm1Files) {
     }
 }
 
-# ── Print results ───────────────────────────────────────────────────────────
 $stopwatch.Stop()
 
-# Modules
-Write-Host ""
-Write-Host "  Modules " -ForegroundColor DarkGray -NoNewline
-Write-Host "($($loaded.Count) loaded)" -ForegroundColor Green
+# ── Build Banner ─────────────────────────────────────────────────────────────
+$gitProfile   = $env:GIT_PROFILE
+$gitIcon      = $env:GIT_PROFILE_ICON
+$totalAliases = $aliases.Count
+
+$mooseLines = @(
+    '   ___            ___',
+    '  /   \          /   \',
+    '  \_   \        /  __/',
+    '   _\   \      /  /__',
+    '   \___  \____/   __/',
+    '       \_       _/',
+    '         | @ @  \_',
+    '         |',
+    '       _/     /\',
+    '      /o)  (o/\ \_',
+    '      \_____/ /  ',
+    '        \____/   '
+)
+
+# Each row on the right is an array of @{t=text; c=color} segments
+$R = @()
+$R += ,@( @{t="  Welcome back, "; c="DarkGray"}, @{t=$username; c="Cyan"} )
+$R += ,@( @{t="  dotfiles "; c="DarkGray"}, @{t=$dotfilesVersion; c="Yellow"} )
+$R += ,@( @{t=""; c="White"} )
+$R += ,@( @{t="  Modules "; c="DarkGray"}, @{t="($($loaded.Count))"; c="Green"}, @{t="  ·  $totalAliases aliases"; c="DarkGray"} )
 foreach ($m in $loaded) {
-    Write-Host "    ✓ " -ForegroundColor DarkGreen -NoNewline
-    Write-Host $m -ForegroundColor Gray
+    $R += ,@( @{t="    "; c="White"}, @{t="✓ "; c="DarkGreen"}, @{t=$m; c="Gray"} )
 }
 foreach ($m in $failed) {
-    Write-Host "    ✗ " -ForegroundColor Red -NoNewline
-    Write-Host $m -ForegroundColor DarkRed
+    $R += ,@( @{t="    "; c="White"}, @{t="✗ "; c="Red"}, @{t=$m; c="DarkRed"} )
 }
-
-# Aliases
-if ($aliases.Count -gt 0) {
-    Write-Host ""
-    Write-Host "  Aliases " -ForegroundColor DarkGray -NoNewline
-    Write-Host "($($aliases.Count))" -ForegroundColor Cyan
-    $aliasLine = "    " + ($aliases -join "  ")
-    Write-Host $aliasLine -ForegroundColor DarkCyan
-}
-
-# Git profile
-$gitProfile = $env:GIT_PROFILE
 if ($gitProfile) {
-    Write-Host ""
-    Write-Host "  Git " -ForegroundColor DarkGray -NoNewline
-    Write-Host "$gitProfile" -ForegroundColor Magenta
+    $R += ,@( @{t=""; c="White"} )
+    $R += ,@( @{t="  Git: "; c="DarkGray"}, @{t="$gitIcon $gitProfile"; c="Magenta"} )
 }
+$R += ,@( @{t="  Load Time: "; c="DarkGray"}, @{t="$($stopwatch.ElapsedMilliseconds)ms"; c="Green"} )
 
-# Timing
+$mooseWidth = ($mooseLines | ForEach-Object { $_.Length } | Measure-Object -Maximum).Maximum
+$rightWidth = ($R | ForEach-Object {
+    ($_ | ForEach-Object { $_.t.Length } | Measure-Object -Sum).Sum
+} | Measure-Object -Maximum).Maximum
+
+$innerWidth = 1 + $mooseWidth + 2 + $rightWidth + 1
+$maxRows    = [Math]::Max($mooseLines.Count, $R.Count)
+$g          = "DarkGreen"
+
 Write-Host ""
-Write-Host "  Ready in $($stopwatch.ElapsedMilliseconds)ms" -ForegroundColor DarkGray
+Write-Host ("  ┌" + ("─" * $innerWidth) + "┐") -ForegroundColor $g
+for ($i = 0; $i -lt $maxRows; $i++) {
+    Write-Host "  │ " -ForegroundColor $g -NoNewline
+
+    $ml = if ($i -lt $mooseLines.Count) { $mooseLines[$i] } else { "" }
+    Write-Host $ml.PadRight($mooseWidth) -ForegroundColor Green -NoNewline
+    Write-Host "  " -NoNewline
+
+    $rowLen = 0
+    if ($i -lt $R.Count) {
+        foreach ($seg in $R[$i]) {
+            Write-Host $seg.t -ForegroundColor $seg.c -NoNewline
+            $rowLen += $seg.t.Length
+        }
+    }
+    Write-Host (" " * ($rightWidth - $rowLen + 1)) -NoNewline
+    Write-Host "│" -ForegroundColor $g
+}
+Write-Host ("  └" + ("─" * $innerWidth) + "┘") -ForegroundColor $g
 Write-Host ""
 
 # ── Register session history logger ────────────────────────────────────────
