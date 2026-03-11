@@ -66,7 +66,7 @@ function Install-CopilotAgent {
 #>
     [CmdletBinding(DefaultParameterSetName = 'Install')]
     param(
-        [Parameter(ParameterSeictName = 'Install', Position = 0, Mandatory, ValueFromRemainingArguments)]
+        [Parameter(ParameterSetName = 'Install', Position = 0, Mandatory, ValueFromRemainingArguments)]
         [string[]]$Name,
 
         [Parameter(ParameterSetName = 'List')]
