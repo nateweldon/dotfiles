@@ -8,7 +8,7 @@ $username = $env:USERNAME
 
 # ── Load modules silently, collect results ──────────────────────────────────
 $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-$loaded    = @()
+$loaded    = [System.Collections.Generic.List[hashtable]]::new()
 $failed    = @()
 $aliases   = @()
 
@@ -19,15 +19,16 @@ foreach ($psm1 in $psm1Files) {
 
     try {
         $before = (Get-Alias -ErrorAction SilentlyContinue | Measure-Object).Count
-Import-Module -Name $psm1 -ErrorAction Stop -DisableNameChecking -WarningAction SilentlyContinue
+        Import-Module -Name $psm1 -ErrorAction Stop -DisableNameChecking -WarningAction SilentlyContinue
         $after  = (Get-Alias -ErrorAction SilentlyContinue | Measure-Object).Count
         $newAliases = $after - $before
-        $loaded += $label
+        $moduleAliases = @()
         if ($newAliases -gt 0) {
-            $moduleAliases = (Get-Module $moduleName -ErrorAction SilentlyContinue |
-                Select-Object -ExpandProperty ExportedAliases -ErrorAction SilentlyContinue).Keys
+            $moduleAliases = @((Get-Module $moduleName -ErrorAction SilentlyContinue |
+                Select-Object -ExpandProperty ExportedAliases -ErrorAction SilentlyContinue).Keys)
             if ($moduleAliases) { $aliases += $moduleAliases }
         }
+        $loaded.Add(@{ label = $label; aliasCount = $moduleAliases.Count })
     } catch {
         $failed += $label
     }
@@ -62,10 +63,11 @@ $R += ,@( @{t="  dotfiles "; c="DarkGray"}, @{t=$dotfilesVersion; c="Yellow"} )
 $R += ,@( @{t=""; c="White"} )
 $R += ,@( @{t="  Modules "; c="DarkGray"}, @{t="($($loaded.Count))"; c="Green"}, @{t="  ·  $totalAliases aliases"; c="DarkGray"} )
 foreach ($m in $loaded) {
-    $R += ,@( @{t="    "; c="White"}, @{t="✓ "; c="DarkGreen"}, @{t=$m; c="Gray"} )
+    $aliasTag = if ($m.aliasCount -gt 0) { " ($($m.aliasCount))" } else { "" }
+    $R += ,@( @{t="    "; c="White"}, @{t="✓ "; c="DarkGreen"}, @{t=$m.label; c="Gray"}, @{t=$aliasTag; c="DarkCyan"} )
 }
 foreach ($m in $failed) {
-    $R += ,@( @{t="    "; c="White"}, @{t="✗ "; c="Red"}, @{t=$m; c="DarkRed"} )
+    $R += ,@( @{t="    "; c="White"}, @{t="✗ "; c="Red"}, @{t=$m; c="DarkRed"}, @{t=""; c="White"} )
 }
 if ($gitProfile) {
     $R += ,@( @{t=""; c="White"} )
